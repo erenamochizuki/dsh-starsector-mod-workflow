@@ -62,6 +62,14 @@ dsh plugin --profile desktop add github:erenamochizuki/dsh-starsector-mod-workfl
 - 模型看到的 skill 列表里会出现 `starsector-mod-workflow`；
 - 工具列表里会出现 `starsector_moci`。
 
+### 方式三：预构建 tarball
+
+从 [Releases](https://github.com/erenamochizuki/dsh-starsector-mod-workflow/releases) 下载 `dsh-starsector-mod-workflow-1.0.0.tgz`，然后：
+
+```bash
+dsh plugin --profile desktop add ./dsh-starsector-mod-workflow-1.0.0.tgz
+```
+
 ### 从源码安装（开发用）
 
 ```bash
