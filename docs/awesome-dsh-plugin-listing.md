@@ -26,8 +26,8 @@ description:
   zh: 把 starsector-mod-workflow skill 与 starsector_moci 工具接入 DSH，按绑定文件在 Moci Starsector 工程上执行捆绑的 CLI（doctor、compile、build、verify、sync）。
 # 可选：用 GitHub 托管的位图作市场卡片图标，不写则回退成作者头像
 # icon: https://raw.githubusercontent.com/erenamochizuki/dsh-starsector-mod-workflow/main/assets/icon-180.png
-# 可选：不发 npm 时，把预构建 tarball 附加到 Release 并在此指向它
-# tarball: https://github.com/erenamochizuki/dsh-starsector-mod-workflow/releases/download/v1.0.0/dsh-starsector-mod-workflow-1.0.0.tgz
+# 可选：不发 npm 时，指向 Release 里预构建的 tarball（本仓库已上传）
+tarball: https://github.com/erenamochizuki/dsh-starsector-mod-workflow/releases/download/v1.0.0/dsh-starsector-mod-workflow-1.0.0.tgz
 ```
 
 注意事项：
@@ -44,7 +44,7 @@ description:
 | 仓库根有 `cordis.patch.yml` 且 `insert` 里 `id` / `name` 正确 | ✅ `id: starsector-mod-workflow` / `name: dsh-starsector-mod-workflow` |
 | 仓库有真实可用的代码，不是占位/纯 README | ✅ `lib/` + `test/` + 捆绑 skill |
 | 仓库创建满 **1 天** | ⚠️ 仓库创建于 2026-10-31，**最早 2026-11-01 再提 PR**（CI 自动检查） |
-| 仓库加了 `dsh-plugin` topic | ⚠️ 建仓后设置：Settings → Topics 加 `dsh-plugin`（建议再加 `deepseek-harness`、`starsector`） |
+| 仓库加了 `dsh-plugin` topic | ✅ 已设置：`dsh-plugin`、`deepseek-harness`、`starsector`、`starsector-mod`、`moci`、`skill` |
 | 项目处于活跃维护状态 | ✅ |
 | 描述无营销词、只讲功能 | ✅ |
 
@@ -87,19 +87,21 @@ git push -u origin add-dsh-starsector-mod-workflow
 ## 5. 可选加分项（让安装更顺）
 
 - **发 npm 包**（`npm publish`，包名保持 `dsh-starsector-mod-workflow`）：市场会显示预构建安装，跳过 `allowBuilds` 构建授权步骤。需要 npm 账号；本仓库 `package.json` 已带 `repository`/`license`/`files` 等字段，`npm pack` 可直接出包。
-- **在 Release 附预构建 tarball**（本仓库 v1.0.0 Release 计划已包含）：
+- **在 Release 附预构建 tarball**（本仓库已完成）：
 
   ```bash
   npm pack        # → dsh-starsector-mod-workflow-1.0.0.tgz
   gh release upload v1.0.0 dsh-starsector-mod-workflow-1.0.0.tgz
   ```
 
-  然后把条目里的 `tarball:` 字段指向该下载链接。
+  本仓库 v1.0.0 的 asset 已在：
+  <https://github.com/erenamochizuki/dsh-starsector-mod-workflow/releases/download/v1.0.0/dsh-starsector-mod-workflow-1.0.0.tgz>，
+  条目里的 `tarball:` 字段已指向它。
 
 ## 6. 提交记录
 
-- [ ] 仓库公开可访问
-- [ ] `dsh-plugin` topic 已加
-- [ ] Release v1.0.0 + tarball 已上传
+- [x] 仓库公开可访问 — <https://github.com/erenamochizuki/dsh-starsector-mod-workflow>
+- [x] `dsh-plugin` topic 已加
+- [x] Release v1.0.0 + tarball 已上传
 - [ ] 条目 YAML 已提交 PR（≥ 2026-11-01）
 - [ ] PR 已合并 → 市场可见
