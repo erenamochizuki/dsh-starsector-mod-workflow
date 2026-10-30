@@ -1,0 +1,61 @@
+{
+  "name": "dsh-starsector-mod-workflow",
+  "version": "1.0.0",
+  "description": "Starsector (Moci) mod development workflow for DeepSeek Harness: bundles the starsector-mod-workflow skill and exposes typed tools over the moci CLI.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "assets",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node test/smoke.mjs && node test/binding-override.mjs"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "starsector",
+    "mod",
+    "moci",
+    "skill"
+  ],
+  "license": "MIT",
+  "author": "erenamochizuki",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erenamochizuki/dsh-starsector-mod-workflow.git"
+  },
+  "homepage": "https://github.com/erenamochizuki/dsh-starsector-mod-workflow#readme",
+  "bugs": {
+    "url": "https://github.com/erenamochizuki/dsh-starsector-mod-workflow/issues"
+  },
+  "engines": {
+    "node": ">=18",
+    "dsh": ">=0.2.0-rc.2"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh": "^0.2.0-rc.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Test / runtime leftovers
+test/missing-moci.json
+*.log
+
+# Local machine binding files must never be committed
+moci.json
+.work/
+local-roots.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

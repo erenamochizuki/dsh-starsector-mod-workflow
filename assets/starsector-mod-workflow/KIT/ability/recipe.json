@@ -1,0 +1,27 @@
+{
+  "id": "ability",
+  "title": "战役能力",
+  "kind": "feature",
+  "lane": "S",
+  "keywords": ["能力", "技能按钮", "ability", "abilities.csv", "冷却"],
+  "pkg": "data.scripts.campaign.abilities",
+  "classSuffix": "",
+  "sampleId": "example_ability",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "csv",
+      "file": "data/campaign/abilities.csv",
+      "header": "name,id,type,tags,activationDays,activationCooldown,durationDays,deactivationDays,deactivationCooldown,unlockedAtStart,defaultForAIFleet,musicSuppression,uiOn,uiOff,uiLoop,worldOn,worldOff,worldLoop,icon,plugin,ai,desc,sortOrder",
+      "row": ["{{NAME}}", "{{ID}}", "TOGGLE", "", "0", "0", "0", "0", "0", "FALSE", "FALSE", "", "", "", "", "", "", "", "{{ICON}}", "{{FQCN}}", "", "{{DESC}}", "100"]
+    },
+    {
+      "type": "note",
+      "text": "在 modplugin 里授予能力：Global.getSector().getPlayerFleet().addAbility(\"{{ID}}\")，并确保该能力 id 与 csv 一致。"
+    }
+  ],
+  "checks": ["compile", "wiring"],
+  "notes": "冷却自己算，不依赖 csv 的 activationCooldown。不要在这里开对话；要开页面用 pressButton()。"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "dialog-rule",
+  "title": "规则命令",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": [
+    "规则",
+    "rules.csv",
+    "rulecmd",
+    "对话选项",
+    "BaseCommandPlugin"
+  ],
+  "pkg": "data.scripts.rules",
+  "classSuffix": "Rule",
+  "sampleId": "example",
+  "produces": [
+    {
+      "path": "{{PKG_PATH}}/{{CLASS}}.java",
+      "template": "SKELETON.java"
+    }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "settings.json 的 ruleCommandPackages 登记 {{PACKAGE}}（已登记则复用）；rules.csv 使用简单类名 {{CLASS}} <参数>，不重复包名。"
+    }
+  ],
+  "checks": [
+    "compile"
+  ],
+  "notes": "条件命令的 boolean 用于匹配；script 返回 false 不会终止后续命令。条件避免副作用，费用和奖励在同一受保护操作中处理。"
+}

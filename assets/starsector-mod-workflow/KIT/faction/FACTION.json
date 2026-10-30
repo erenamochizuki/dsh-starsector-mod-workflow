@@ -1,0 +1,23 @@
+{
+	"id": "{{ID}}",
+	"color": [120, 160, 200, 255],
+	"baseUIColor": [120, 160, 200, 255],
+	"displayName": "{{NAME}}",
+	"displayNameWithArticle": "{{NAME}}",
+	"logo": "graphics/factions/{{ID}}.png",
+	"crest": "graphics/factions/crest_{{ID}}.png",
+	"showInIntelTab": true,
+	"names": {
+	},
+	"portraits": {
+	},
+	"music": {
+		"theme": "music_none",
+		"market_neutral": "music_none",
+		"market_hostile": "music_none",
+		"market_friendly": "music_none",
+		"encounter_neutral": "music_none",
+		"encounter_hostile": "music_none",
+		"encounter_friendly": "music_none",
+	},
+}

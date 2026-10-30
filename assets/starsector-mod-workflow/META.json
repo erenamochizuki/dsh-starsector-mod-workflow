@@ -1,0 +1,50 @@
+{
+  "name": "starsector-mod-workflow",
+  "version": "2.0.5-moci.9",
+  "schema": 2,
+  "stage": "T10",
+  "status": "public-release",
+  "builtAt": "2026-10-24",
+  "entry": "SKILL.md",
+  "index": "INDEX.md",
+  "requires": {
+    "node": ">=18",
+    "jdk": "17",
+    "maven": "3.x"
+  },
+  "game": {
+    "version": "0.98"
+  },
+  "supersedes": ">=0.4.0 <1.0.0",
+  "install": {
+    "mode": "in-place"
+  },
+  "legacyMarkers": [
+    "manifest.json",
+    "SS_INDEX.md",
+    "Skill",
+    "CASES"
+  ],
+  "structure": {
+    "required": [
+      "SKILL.md",
+      "WORKFLOW.md",
+      "META.json",
+      "FACTS.md",
+      "INDEX.md",
+      "UPGRADE.md",
+      "Script",
+      "GATE",
+      "LIB",
+      "KIT",
+      "VERIFY",
+      "API",
+      "REF"
+    ],
+    "planned": []
+  },
+  "bindings": [
+    "<CODEX_HOME>/starsector-projects/moci.json"
+  ],
+  "profile": "moci-maven"
+}

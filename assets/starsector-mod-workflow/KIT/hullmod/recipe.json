@@ -1,0 +1,23 @@
+{
+  "id": "hullmod",
+  "title": "船插",
+  "kind": "feature",
+  "lane": "S",
+  "keywords": ["船插", "船体插件", "hullmod", "hull_mod", "插件"],
+  "pkg": "data.scripts.hullmods",
+  "classSuffix": "",
+  "sampleId": "example_hullmod",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "csv",
+      "file": "data/hullmods/hull_mods.csv",
+      "header": "name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sModDesc,sprite",
+      "row": ["{{NAME}}", "{{ID}}", "0", "", "", "", "", "0", "", "false", "false", "0", "0", "0", "0", "{{FQCN}}", "{{DESC}}", "{{DESC}}", "", "{{ICON}}"]
+    }
+  ],
+  "checks": ["compile", "wiring"],
+  "notes": "改属性走 applyEffectsBeforeShipCreation；描述里的 {%s} 按 getDescriptionParam 顺序填充。"
+}

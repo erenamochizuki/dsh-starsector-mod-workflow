@@ -1,0 +1,32 @@
+{
+  "id": "intel",
+  "title": "情报条目",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": [
+    "情报",
+    "intel",
+    "消息",
+    "报告",
+    "IntelInfoPlugin"
+  ],
+  "pkg": "data.scripts.intel",
+  "classSuffix": "",
+  "sampleId": "example_intel",
+  "produces": [
+    {
+      "path": "{{PKG_PATH}}/{{CLASS}}.java",
+      "template": "SKELETON.java"
+    }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "创建一个 {{CLASS}} 实例并 addIntel(instance)；需要 advanceImpl 或结束倒计时时，再对同一实例 addScript(instance)。普通持久脚本读档后不要重复添加，临时挂钩按设计重挂去重。"
+    }
+  ],
+  "checks": [
+    "compile"
+  ],
+  "notes": "情报不要每帧刷新；列表文字在 createIntelInfo，正文在 createSmallDescription。"
+}

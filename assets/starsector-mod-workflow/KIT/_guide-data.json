@@ -1,0 +1,227 @@
+{
+  "_comment": "GUIDE.md / PATCH.md 的单一来源。改这里后跑 node Script\\gen-guides.mjs 重新生成，不要手改生成物。",
+  "common": {
+    "patch_allow": [
+      "改包名/类名：用 new.mjs，不要手改 package 行",
+      "改数值：先改 SPEC 数值要求，再改骨架常量",
+      "加方法：先在本表补一条 pitfalls，再改骨架",
+      "换接线方式：在 recipe.json 的 wiring 里改，不要只改生成出来的文件"
+    ],
+    "patch_deny": [
+      "删掉 // FILL: 注释（留着才知道哪里还没填）",
+      "绕过 sscore 自己再写一套滑块/列表/命中",
+      "在 advance/每帧里轮询鼠标键盘来判断点击",
+      "把持久化写进按钮回调或渲染函数"
+    ]
+  },
+  "ability": {
+    "use": "需要一个可点的战役按钮，按下后改变战役状态（舰队/星区/记忆），并带冷却。",
+    "steps": [
+      "node Script\\new.mjs ability <mod> --id <snake_id> --name \"<中文名>\"",
+      "填 SKELETON 里 1 处 FILL：activate() 的效果",
+      "把 24x24 图标放进 mod，路径与 abilities.csv 的 icon 列一致",
+      "modplugin 里 addAbility(\"<id>\")（只加一次，读档判重）",
+      "验收：按钮出现 → 点击生效 → 冷却条从满回落到 0"
+    ],
+    "pitfalls": [
+      "冷却算了两次：csv 的 activationCooldown 与本类 COOLDOWN_DAYS 只留一个",
+      "在 activate() 里开对话框：改成 pressButton() 或另起规则",
+      "忘记 addAbility，csv 有行但按钮不出现"
+    ]
+  },
+  "hullmod": {
+    "use": "给装上的舰船加一条属性修正，或拒绝某些舰体。",
+    "steps": [
+      "node Script\\new.mjs hullmod <mod> --id <snake_id> --name \"<中文名>\"",
+      "改 applyEffectsBeforeShipCreation 里的那一条属性",
+      "改 getDescriptionParam 的返回值，与描述里的 {%s} 一一对应",
+      "换图标并确认 hull_mods.csv 的 sprite 列路径存在",
+      "验收：装上/卸下数值对称，描述不留 {%s}"
+    ],
+    "pitfalls": [
+      "描述里的 {%s} 数量多于 getDescriptionParam 提供的参数，界面会显示空",
+      "isApplicableToShip 返回 false 但 getUnapplicableReason 返回 null",
+      "一条船插改三条属性，出问题无法定位是哪条"
+    ]
+  },
+  "shipsystem": {
+    "use": "舰船 F 技能只改属性（速度/射程/伤害/护盾），不改武器行为。",
+    "steps": [
+      "node Script\\new.mjs shipsystem <mod> --id <snake_id> --name \"<中文名>\"",
+      "改 BONUS 与 apply/unapply 的那条属性",
+      "在 .ship/.variant 里设 systemId",
+      "验收：开启时数值变化，关闭后恢复原值"
+    ],
+    "pitfalls": [
+      "unapply 漏掉 apply 里 modify 的某个 key，关掉后永久加成",
+      "apply 里没乘 effectLevel，技能一开就是满效果",
+      "STAT_MOD 想做武器行为，应改用 weapon-effect"
+    ]
+  },
+  "weapon-effect": {
+    "use": "武器每帧持续行为（光效、周期性伤害、状态累积）。单次命中优先用 weapon 的 script。",
+    "steps": [
+      "node Script\\new.mjs weapon-effect <mod> --id <snake_id> --name \"<中文名>\"",
+      "在目标 .wpn 顶层加 \"everyFrameEffect\":\"<fqcn>\"",
+      "填 advance 里的触发条件与效果",
+      "验收：开火后效果按 INTERVAL 触发，暂停时不触发"
+    ],
+    "pitfalls": [
+      "每帧遍历全引擎弹体，用射弹自带挂钩",
+      "不判 isPaused，暂停时还在结算",
+      "用帧数当时间，高帧率下触发频率翻倍"
+    ]
+  },
+  "beam-effect": {
+    "use": "光束外观要脱离原版贴图的“直筒+滚动”，做螺旋/电弧/亮芯；伤害仍交给原生 beam。",
+    "steps": [
+      "node Script\\new.mjs beam-effect <mod> --id <snake_id> --name \"<中文名>\"",
+      "在目标 .wpn 末尾加 \"beamEffect\":\"<fqcn>\"（specClass 必须是 beam）",
+      "按原图调 AMP/PITCH/SPEED 与四个颜色，先把外晕调对再加细节",
+      "先只留光晕+亮芯跑通，再逐层加螺旋、电弧",
+      "验收：开火即有、关火即灭、炮口与命中点不断裂"
+    ],
+    "pitfalls": [
+      "亮度没降到 0.03 以下就 continue，关火后粒子残留",
+      "每帧按固定数量发粒子（应按 RATE*amount 累积），高帧率下爆量",
+      "用 GL 画而不是引擎粒子，暂停/换分辨率后错位",
+      "忘记在 .wpn 里挂 beamEffect，脚本编过但不执行"
+    ]
+  },
+  "intel": {
+    "use": "需要在情报/消息列表里留一条可点开的记录。",
+    "steps": [
+      "node Script\\new.mjs intel <mod> --id <snake_id> --name \"<中文名>\"",
+      "换 40x40 图标并确认存在",
+      "createIntelInfo 写一行，createSmallDescription 写正文",
+      "触发时 getIntelManager().addIntel(new <Class>())",
+      "验收：出现 → 点开有正文 → endAfterDelay 后消失"
+    ],
+    "pitfalls": [
+      "在 advance 里反复刷新正文，列表卡顿",
+      "只创建不结束，情报越堆越多",
+      "正文手写像素换行，窗口一变就溢出"
+    ]
+  },
+  "screen-native": {
+    "use": "页面只需要文字、按钮、滚动条，优先这条路，别自绘。",
+    "steps": [
+      "node Script\\new.mjs screen-native <mod> --id <snake_id> --name \"<中文名>\"",
+      "createCustomDialog 里用 createUIElement + TooltipMakerAPI 排版",
+      "选项用 addButton，回调在 advance 里消费一次",
+      "打开：dialog.showCustomDialog(w, h, new <Class>())",
+      "验收：滚动、确认、取消、Esc 都正常"
+    ],
+    "pitfalls": [
+      "用像素坐标判断点击（原生控件已经帮你做了）",
+      "忘记 updateUIElementSizeAndMakeItProcessInput，按钮点不到",
+      "在按钮回调里直接写存档，取消后也生效"
+    ]
+  },
+  "screen-layout": {
+    "use": "原生控件做不到的构图（三栏、自绘列表、拖拽滑块）才用。",
+    "steps": [
+      "node Script\\new.mjs screen-layout <mod> --id <snake_id> --name \"<中文名>\"",
+      "init 里只建一次控件，命中区用 sscore.HitMap 登记",
+      "advance 里把输入结算成状态（拖动/滚轮/键盘）",
+      "reportDismissed 里写回结果，确认与取消分开",
+      "验收：拖动跟手、滚轮不越界、Esc 可退出"
+    ],
+    "pitfalls": [
+      "自己写 processInput 再手判命中，和 HitMap 两套坐标",
+      "在 render 里改状态，帧率不同结果不同",
+      "尺寸散落魔法数，换个分辨率就错位"
+    ]
+  },
+  "monthly-store": {
+    "use": "需要跨日/跨月结算的状态（次数、产出、事件计时）。",
+    "steps": [
+      "node Script\\new.mjs monthly-store <mod> --id <snake_id> --name \"<中文名>\"",
+      "modplugin 里 addScript，先 findScript 判重",
+      "settleDay 保持幂等，读档重放不重复发",
+      "验收：过一天只结算一次，读档不重复"
+    ],
+    "pitfalls": [
+      "每次 onGameLoad 都 addScript，脚本越叠越多",
+      "用浮点累加天数，长时间游戏后漂移",
+      "把最后一次结算日写成对象，读档后类型对不上"
+    ]
+  },
+  "dialog-rule": {
+    "use": "rules.csv 需要一个自定义命令来改状态/给选项。",
+    "steps": [
+      "node Script\\new.mjs dialog-rule <mod> --id <snake_id> --name \"<中文名>\"",
+      "settings.json 的 ruleCommandPackages 加包名",
+      "rules.csv 写一行调用该类与参数",
+      "验收：走到该规则时命令执行，失败分支可走"
+    ],
+    "pitfalls": [
+      "包名没注册，rules.csv 命中不到类",
+      "execute 返回 true 但实际没做事，后续分支误判",
+      "在命令里弹新对话，栈里出现两个 dialog"
+    ]
+  },
+  "faction": {
+    "use": "新增一个势力（颜色、名称、旗帜、关系）。",
+    "steps": [
+      "node Script\\new.mjs faction <mod> --id <snake_id> --name \"<中文名>\"",
+      "补 logo/crest 两张图，确认路径存在",
+      "开局关系放 modplugin 的 onNewGame",
+      "验收：势力出现在情报页，关系值符合 SPEC"
+    ],
+    "pitfalls": [
+      "缺 logo/crest，界面空白但不报错",
+      "关系写死在静态初始化，重载后叠加",
+      "showInIntelTab 开了但没有任何市场/情报"
+    ]
+  },
+  "custom-start": {
+    "use": "改开局：给船、给钱、改起始位置。",
+    "steps": [
+      "node Script\\new.mjs custom-start <mod> --id <snake_id> --name \"<中文名>\"",
+      "mod_info.json 的 modPlugin 指向该类（已有则合并）",
+      "onNewGame 里给船/货/钱，variant id 必须存在",
+      "验收：新开一档，舰队与货物符合 SPEC"
+    ],
+    "pitfalls": [
+      "又写一个 modPlugin，两个都加载但只有一个生效",
+      "variant id 拼错，开局直接报错",
+      "在 onGameLoad 里发奖励，每次读档都发一次"
+    ]
+  },
+  "industry-colony": {
+    "use": "新增殖民地产业（产出/需求/建筑要求）。",
+    "steps": [
+      "node Script\\new.mjs industry-colony <mod> --id <snake_id> --name \"<中文名>\"",
+      "apply 里声明 supply/demand，unapply 里逐条撤销",
+      "把 industry id 接到市场/建筑数据",
+      "验收：建成后有产出，拆除后市场数值归零"
+    ],
+    "pitfalls": [
+      "调 super.apply()（BaseIndustry 没实现它）",
+      "unapply 漏撤一条，拆除后幽灵产能",
+      "需求超过市场等级允许，产业永远亏损"
+    ]
+  },
+  "blast-fx": {
+    "use": "一次性大范围爆炸（导弹/鱼雷命中、近炸引信），要“白闪 → 火球 → 光针 → 冲击波环”的完整链条，且不需要准备任何美术素材（默认走原版 graphics/fx）。",
+    "steps": [
+      "node Script\\new.mjs blast-fx <mod> --id <snake_id> --name \"<中文名>\"（一个文件里同时有伤害、时间轴、渲染层）",
+      "先改 // FILL: 那几个数：RADIUS（伤害半径）、DAMAGE、EMP；VISUAL_SCALE 保持 1.0 = 火球边缘正压在伤害圈上",
+      "在武器 .proj 的 onHitEffect 填类名；近炸时在自己的 fuze 逻辑里调 <CLASS>.detonate(engine, source, loc, <CLASS>.visualRadius())",
+      "节奏先对照 Timeline 的六个时间点：白闪 0.12s 内结束、火球 0.20s 冲到满径、0.45s 开始缩、光针 0.34s 才出现、三环 0.50/0.62/0.74s 接力",
+      "有自制贴图时只改 Fx 的 SPRITE_* 常量，png 放 graphics/fx/，不要动渲染代码",
+      "验收：命中即爆、视觉半径与伤害圈吻合、游戏暂停时特效停住、低帧率下不闪烁"
+    ],
+    "pitfalls": [
+      "只调 getSprite 不先 loadTexture → textureId=0，整层静默不画（现象：只有粒子、没有火球）",
+      "addLayeredRenderingPlugin 之后不 init(host) → 视口裁剪拿不到位置，一帧都不画",
+      "render 里不用 try/catch → 一层抛异常带崩整场渲染，表现为画面全黑只剩 UI",
+      "在 render 里 Math.random() 生成角度 → 每帧跳变，看起来在闪（随机值要在构造时生成）",
+      "把 setSize 的世界单位再乘 getViewMult() → 半径大 2.25 倍，铺满屏幕",
+      "视觉半径按伤害半径的 2 倍做 → 玩家以为打不到（900su 伤害圈配 1800su 视觉，实测被评“太大太大”）",
+      "纯加法叠薄贴图（alpha 均值 0.14 的 explosion3）→ 星空透出来，火球像纱；要用一层正常混合的密实垫层",
+      "一个配方只产出一个文件：想分成多个类只能做成嵌套类"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "monthly-store",
+  "title": "存档数据与结算",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": ["存档", "每月", "每日", "结算", "EveryFrameScript", "memory"],
+  "pkg": "data.scripts.campaign",
+  "classSuffix": "Script",
+  "sampleId": "example_state",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "在 modplugin 的 onGameLoad(boolean newGame) 里：Global.getSector().addScript(new {{CLASS}}())；读档不要重复加，先用 getScripts().findScript 判重。"
+    }
+  ],
+  "checks": ["compile"],
+  "notes": "状态存 memory 用 ${{ID}}_ 前缀；跨日结算用 clock 的绝对天数做键，不要自己累加浮点。"
+}

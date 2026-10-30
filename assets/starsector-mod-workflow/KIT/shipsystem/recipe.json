@@ -1,0 +1,37 @@
+{
+  "id": "shipsystem",
+  "title": "舰船系统",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": [
+    "舰船系统",
+    "shipsystem",
+    "F技能",
+    "system",
+    "stat mod"
+  ],
+  "pkg": "data.scripts.shipsystems",
+  "classSuffix": "",
+  "sampleId": "example_system",
+  "produces": [
+    {
+      "path": "{{PKG_PATH}}/{{CLASS}}.java",
+      "template": "SKELETON.java"
+    },
+    {
+      "path": "data/shipsystems/{{ID}}.system",
+      "template": "SYSTEM.json"
+    }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "在 data/shipsystems/ship_systems.csv 登记 {{ID}}；.system 的 statsScript 指向 {{FQCN}}；在 data/hulls/ship_data.csv 的 system id（普通 F）或 defense id（防御系统）列绑定 {{ID}}。"
+    }
+  ],
+  "checks": [
+    "compile",
+    "wiring"
+  ],
+  "notes": "STAT_MOD 骨架演示属性修改；复杂行为按需求实现。启用 runScriptWhileIdle 后需在 apply 的 idle/cooldown 路径处理清理。"
+}

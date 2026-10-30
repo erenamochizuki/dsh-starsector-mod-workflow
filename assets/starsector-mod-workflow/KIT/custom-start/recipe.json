@@ -1,0 +1,21 @@
+{
+  "id": "custom-start",
+  "title": "开局定制",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": ["开局", "开局船", "custom start", "onNewGame", "初始"],
+  "pkg": "data.scripts",
+  "classSuffix": "ModPlugin",
+  "sampleId": "example_start",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "mod_info.json 的 modPlugin 指向 {{FQCN}}。一个 mod 只能有一个 modPlugin，已有就合并方法，不要写第二个。"
+    }
+  ],
+  "checks": ["compile"],
+  "notes": "没有 CustomStartPlugin 这种 API：开局定制就是 onNewGame/onNewGameAfterProcGen 里改玩家舰队与货物。"
+}

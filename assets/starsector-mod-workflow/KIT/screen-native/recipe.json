@@ -1,0 +1,21 @@
+{
+  "id": "screen-native",
+  "title": "原生控件页面",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": ["页面", "对话", "原生控件", "CustomDialogDelegate", "showCustomDialog", "按钮"],
+  "pkg": "data.scripts.ui",
+  "classSuffix": "Dialog",
+  "sampleId": "example",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "打开：Global.getSector().getCampaignUI() 里已有对话时用 dialog.showCustomDialog(600f, 400f, new {{CLASS}}())；确认/取消走 CustomDialogCallback。"
+    }
+  ],
+  "checks": ["compile"],
+  "notes": "能用原生控件就不自绘：文本、按钮、滚动条都交给 createUIElement + TooltipMakerAPI，少一整层输入处理。"
+}

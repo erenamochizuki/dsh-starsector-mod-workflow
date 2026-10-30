@@ -1,0 +1,21 @@
+{
+  "id": "industry-colony",
+  "title": "殖民地产业",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": ["产业", "殖民地", "industry", "经济", "供需"],
+  "pkg": "data.scripts.industry",
+  "classSuffix": "Industry",
+  "sampleId": "example",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "在 data/industries/ 或市场 JSON 里加 industry id \"{{ID}}\"；建筑/需求在 apply() 里声明。"
+    }
+  ],
+  "checks": ["compile"],
+  "notes": "apply/unapply 必须成对：apply 里加的每条 supply/demand，unapply 都要撤掉，否则拆掉产业后数值会残留在市场上。"
+}

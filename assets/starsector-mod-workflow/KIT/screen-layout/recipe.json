@@ -1,0 +1,21 @@
+{
+  "id": "screen-layout",
+  "title": "自绘页面",
+  "kind": "feature",
+  "lane": "L",
+  "keywords": ["自绘", "custom screen", "CustomVisualDialogDelegate", "面板", "渲染"],
+  "pkg": "data.scripts.ui",
+  "classSuffix": "Screen",
+  "sampleId": "example",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "打开：dialog.showCustomVisualDialog(1000f, 700f, new {{CLASS}}())；尺寸与 SPEC 的构图一致。"
+    }
+  ],
+  "checks": ["compile"],
+  "notes": "只有原生控件做不到时才是 L 车道。命中检测用 sscore.HitMap，滚轮/拖动用 sscore.Slider，不要自己再写一套。"
+}

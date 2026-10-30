@@ -1,0 +1,22 @@
+{
+  "id": "faction",
+  "title": "势力数据",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": ["势力", "faction", "阵营", "声望", "关系"],
+  "pkg": "data.scripts.world",
+  "classSuffix": "Faction",
+  "sampleId": "example",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" },
+    { "path": "data/world/factions/{{ID}}.faction", "template": "FACTION.json" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "势力靠 data/world/factions/{{ID}}.faction 生效；开局设置关系放 modplugin 的 onNewGame，不要在这里写死全局状态。"
+    }
+  ],
+  "checks": ["compile"],
+  "notes": "没有 FactionPlugin 这种 API：势力是数据，运行时只通过 FactionAPI 改关系/颜色/名称。"
+}

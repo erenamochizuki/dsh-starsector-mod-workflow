@@ -1,0 +1,21 @@
+{
+  "id": "weapon-effect",
+  "title": "武器每帧效果",
+  "kind": "feature",
+  "lane": "M",
+  "keywords": ["武器效果", "everyFrameEffect", "wpn", "每帧", "开火", "命中"],
+  "pkg": "data.scripts.weapons",
+  "classSuffix": "",
+  "sampleId": "example_weapon_effect",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "在目标 .wpn 里加一行 \"everyFrameEffect\":\"{{FQCN}}\"（顶层键，注意前面的逗号）。"
+    }
+  ],
+  "checks": ["compile"],
+  "notes": "只处理\"每帧持续\"的行为；单次命中/开火优先用 weapon 的 script 接口，不要每帧轮询全部弹体。"
+}

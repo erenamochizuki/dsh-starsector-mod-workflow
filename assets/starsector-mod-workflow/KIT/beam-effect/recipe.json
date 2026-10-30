@@ -1,0 +1,21 @@
+{
+  "id": "beam-effect",
+  "title": "光束自绘（BeamEffectPlugin）",
+  "kind": "script",
+  "lane": "M",
+  "keywords": ["光束", "激光", "beam", "beamEffect", "螺旋", "电弧", "自绘"],
+  "pkg": "data.scripts.weapons",
+  "classSuffix": "",
+  "sampleId": "example_beam_effect",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "在目标武器 .wpn 末尾加一行：\"beamEffect\":\"{{FQCN}}\"（与 specClass:\"beam\" 配套）；R3 会检查类是否存在。"
+    }
+  ],
+  "checks": ["compile", "wiring"],
+  "notes": "原生 beam 仍管伤害/穿透/音效；本脚本只发粒子。亮度 < 0.03 时不画，否则关火后会残留。"
+}

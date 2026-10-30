@@ -1,0 +1,58 @@
+{
+  "note": "命令分类：user 进首屏；maintenance 单列维护/破坏性；internal 由其它命令调用，不进命令表。新增 Script\\*.mjs 必须在此登记。",
+  "user": [
+    "doctor",
+    "compile",
+    "verify",
+    "logscan",
+    "probe",
+    "api-src",
+    "api-grep",
+    "find-class",
+    "javap",
+    "req",
+    "spec",
+    "plan",
+    "new",
+    "wrapup",
+    "note"
+  ],
+  "maintenance": [
+    "replace",
+    "pack",
+    "clean",
+    "harvest",
+    "distill",
+    "decompile"
+  ],
+  "internal": [
+    "gen-index",
+    "gen-guides",
+    "docs-lint",
+    "lib-test",
+    "mod-test",
+    "preview",
+    "recipe-compile",
+    "recipe-test",
+    "replace-selftest",
+    "verify-selftest",
+    "wrapup-selftest"
+  ],
+  "profile": "moci-maven",
+  "entry": "Script/moci.mjs",
+  "moci": [
+    "doctor",
+    "compile",
+    "build",
+    "verify",
+    "sync",
+    "api-src",
+    "api-grep",
+    "find-class",
+    "javap",
+    "logscan",
+    "templates",
+    "new",
+    "preview"
+  ]
+}

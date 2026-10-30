@@ -1,0 +1,12 @@
+{
+  "name": "starsector-mod-workflow",
+  "version": "2.0.5-moci.9",
+  "schema": 2,
+  "profile": "moci-maven",
+  "upstreamVersion": "2.0.5",
+  "adaptedAt": "2026-10-24",
+  "files": 253,
+  "bytes": 756491,
+  "distribution": "Public release; local machine paths are redacted to placeholders (<工程根>, <游戏根>, <技能根>, <JDK 目录>, <用户目录>, <本机路径>). The machine binding (moci.json) lives outside this directory.",
+  "notes": "Upstream 2.0.5 adapted for Moci (moci-maven profile). SHA256SUMS describes this directory, excluding PACKAGE.json and SHA256SUMS.txt. Hashes recomputed after redaction."
+}

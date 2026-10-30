@@ -1,0 +1,29 @@
+{
+  "id": "blast-fx",
+  "title": "大范围爆炸特效（贴图分层 + 纯数学时间轴）",
+  "kind": "script",
+  "lane": "M",
+  "keywords": ["爆炸", "爆炸特效", "blast", "命中即爆", "onHitEffect", "冲击波", "冲击波环", "光针", "白闪", "分层渲染", "LayeredRenderingPlugin", "explosion3"],
+  "pkg": "data.scripts.weapons",
+  "classSuffix": "",
+  "sampleId": "example_blast_fx",
+  "produces": [
+    { "path": "{{PKG_PATH}}/{{CLASS}}.java", "template": "SKELETON.java" }
+  ],
+  "wiring": [
+    {
+      "type": "note",
+      "text": "射弹命中即爆：在 .proj 顶层加 \"onHitEffect\":\"{{FQCN}}\"；近炸/定时引爆直接调 {{CLASS}}.detonate(engine, source, loc, radius)。"
+    },
+    {
+      "type": "note",
+      "text": "贴图默认全用原版 graphics/fx（explosion1/3/4/5、explosion0、explosion_ring0、fog_circle2），零素材即可跑；换自制图只改 loadSprite() 里的名字，png 放 graphics/fx/。"
+    },
+    {
+      "type": "note",
+      "text": "视觉半径 R 建议与伤害半径一致（玩家看到的火球边缘=伤害圈）；先定 R 再调各层倍率，不要反过来。"
+    }
+  ],
+  "checks": ["compile", "wiring"],
+  "notes": "单文件：外层 OnHitEffectPlugin + 内部 Timeline（纯数学，可离线预览）+ 内部 Fx（BaseCombatLayeredRenderingPlugin）。所有时间点都是相对 t=LIFETIME 的秒数，改节奏只动 Timeline 常量。"
+}

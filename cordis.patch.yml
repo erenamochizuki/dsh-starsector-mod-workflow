@@ -1,0 +1,24 @@
+# Bundle patch for dsh-starsector-mod-workflow.
+#
+# Loaded automatically because this package is listed in the profile's
+# `dsh.profile.bundles`. The entry is mounted on the root context, so the skill
+# provider and the `starsector_moci` tool are visible to every agent/preset.
+#
+# Optional plugin config (uncomment and edit to override):
+#
+#   - insert:
+#       - id: starsector-mod-workflow
+#         name: dsh-starsector-mod-workflow
+#         config:
+#           binding: C:/path/to/starsector-projects/moci.json
+#           node: C:/path/to/node/node.exe
+#
+# Supported config keys (all optional):
+#   binding        absolute path of the moci.json project binding file
+#   node           absolute path of the Node executable used to run the moci CLI
+#   assetRoot      absolute path of the bundled skill directory (defaults to ./assets/starsector-mod-workflow)
+#   tool           set to false to register the skill only and skip the starsector_moci tool
+
+- insert:
+    - id: starsector-mod-workflow
+      name: dsh-starsector-mod-workflow
